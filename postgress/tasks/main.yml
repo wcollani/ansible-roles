@@ -2,8 +2,7 @@
    - name: Install base packages
      apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
      with_items:
-     - ntp
-     - vim
-     - screen
-     - curl
-     - git
+     - postgresql
+     - postgresql-contrib
+     - libpq-dev
+     - python-psycopg2
