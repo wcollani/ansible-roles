@@ -1,0 +1,6 @@
+---
+   - name: Install ansible
+     apt: pkg=ansible state=latest update_cache=yes
+
+   - name: Don't check host file for ansible runs
+     shell: sed -i 's/#host_key_checking = False/host_key_checking = False/' /etc/ansible/ansible.cfg

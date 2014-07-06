@@ -1,0 +1,21 @@
+---
+   - name: Install openjdk-7-jre
+     apt: pkg=openjdk-7-jre state=latest update_cache=yes
+
+   - name: Extract logstsh to /opt
+     unarchive: src=logstash-1.4.0.tar.gz dest=/opt/
+
+   - name: Create /etc/logstash
+     action: file path=/etc/logstash state=directory
+
+   - name: Copy logstash conf
+     copy: src=logstash_server.conf dest=/etc/logstash/server.conf owner=root group=root mode=644
+
+#   - name: Start logstash
+#     command: /opt/logstash-1.4.0/bin/logstash -f /etc/logstash/server.conf --log /var/log/logstash.log
+
+   - name: elasticsearch to /opt
+     unarchive: src=elasticsearch-1.1.1.tar.gz dest=/opt/
+
+   - name: copy elasticsearch conf
+     copy: src=elasticsearch.yml dest=/opt/elasticsearch-1.1.1/config/elasticsearch.yml owner=root group=root mode=644

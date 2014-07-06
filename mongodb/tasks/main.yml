@@ -1,0 +1,3 @@
+---
+   - name: Install mongodb
+     apt: pkg=mongodb-server state=latest update_cache=yes

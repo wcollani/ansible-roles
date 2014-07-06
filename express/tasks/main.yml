@@ -1,0 +1,6 @@
+---
+   - name: Install express-generator
+     npm: name=express-generator global=yes
+
+   - name: Install express
+     npm: name=express global=yes

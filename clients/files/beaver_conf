@@ -1,0 +1,10 @@
+# /etc/beaver/conf
+[beaver]
+rabbitmq_host: rmq-node0
+logstash_version: 1
+rabbitmq_queue: logstash-queue
+rabbitmq_queue_durable: 0
+rabbitmq_key: logstash-key
+rabbitmq_exchange: logstash-exchange
+rabbitmq_exchange_durable: 1
+rabbitmq_exchange_type: direct

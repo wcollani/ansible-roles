@@ -1,0 +1,23 @@
+---
+   - name: Add Jenkins apt key
+     apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+
+   - name: Add Jenkins apt source
+     shell: echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list
+
+   - name: Install openjdk-7-jre
+     apt: pkg=openjdk-7-jre state=latest update_cache=yes
+
+   - name: Install Jenkins
+     apt: pkg=jenkins state=latest
+
+   - name: Enabled Jenkins
+     service: name=jenkins state=started enabled=yes
+
+   - name: Copy jenkins nginx config
+     copy: src=nginx_default.conf dest=/etc/nginx/sites-available/jenkins owner=root group=root mode=0644 
+
+   - name: Create symlinx for site-enabled
+     file: src=/etc/nginx/sites-available/jenkins dest=/etc/nginx/sites-enabled/default owner=root group=root state=link
+     notify:
+        - restart nginx

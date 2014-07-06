@@ -1,0 +1,9 @@
+---
+   - name: Install nodejs
+     apt: pkg=nodejs state=latest update_cache=yes
+
+   - name: Install npm
+     apt: pkg=npm state=latest
+
+   - name: Fix /usr/bin/env node error
+     shell: ln -s `which nodejs` /usr/bin/node

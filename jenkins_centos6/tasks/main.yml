@@ -1,0 +1,32 @@
+---
+   - name: Add Jenkins yum repo
+     shell: wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+
+   - name: Add Jenkins yum key
+     shell: rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+
+   - name: Install openjdk-7-jdk
+     yum: pkg=java-1.7.0-openjdk state=latest
+
+   - name: Install openjdk-7-jdk-devel
+     yum: pkg=java-1.7.0-openjdk-devel state=latest
+
+   - name: Install dejavu-sans-fonts
+     yum: pkg=dejavu-sans-fonts state=latest
+
+   - name: Install Jenkins
+     yum: pkg=jenkins state=latest
+
+   - name: Enable and start jenkins
+     service: name=jenkins enabled=yes state=started
+
+#   - name: Remove nginx default config
+#     shell: rm -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+   - name: Copy jenkins nginx config
+     copy: src=nginx_default.conf dest=/etc/nginx/conf.d/jenkins owner=root group=root mode=0644 
+
+   - name: Create symlinx for site-enabled
+     file: src=/etc/nginx/conf.d/jenkins dest=/etc/nginx/conf.d/default.conf owner=root group=root state=link
+     notify:
+        - restart nginx

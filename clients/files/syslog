@@ -1,0 +1,5 @@
+# /etc/beaver/conf.d/syslog
+[/var/log/syslog]
+type: syslog
+tags: sys,main
+

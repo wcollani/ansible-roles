@@ -1,0 +1,16 @@
+---
+   - name: Install docker.io
+     apt: pkg=docker.io state=latest update_cache=yes
+
+   - name: Enable Docker
+     service: name=docker.io state=started enabled=yes
+
+   - name: Create symlinx for site-enabled
+     file: src=/usr/bin/docker.io dest=/usr/bin/docker owner=root group=root state=link
+
+   - name: Add docker group
+     group: name=docker state=present
+
+   - name: Add vagrant user to docker group
+     user: name=jenkins groups=docker append=yes
+     notify: docker restart

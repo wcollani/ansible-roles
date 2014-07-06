@@ -1,0 +1,8 @@
+---
+   - name: Extract kibana to /usr/share/nginx/html
+     unarchive: src=kibana-3.0.1.tar.gz dest=/usr/share/nginx/html
+
+   - name: Copy conf
+     copy: src=config.js dest=/usr/share/nginx/html/kibana-3.0.1/config.js owner=root group=root mode=644
+     notify:
+     - restart nginx

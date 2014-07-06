@@ -1,0 +1,22 @@
+---
+   - name: kill any existing beaver procs
+     command: killall beaver
+     ignore_errors: yes
+
+   - name: Install pip
+     apt: pkg=python-pip state=latest update_cache=yes
+
+   - name: Install Beaver
+     shell: pip install beaver
+
+   - name: Make sure that the beaver directory exsists
+     action: file path=/etc/beaver/conf.d state=directory
+
+   - name: Copy beaver conf
+     copy: src=beaver_conf dest=/etc/beaver/conf owner=root group=root mode=644
+
+   - name: Copy syslog beaver conf
+     copy: src=syslog dest=/etc/beaver/conf.d/syslog owner=root group=root mode=644
+
+   - name: Start Beaver
+     command: beaver -d -t rabbitmq -D -c /etc/beaver/conf -C /etc/beaver/conf.d -P /etc/beaver/pid --logfile /var/log/beaver

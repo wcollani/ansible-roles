@@ -1,0 +1,12 @@
+---
+   - name: update apt
+     apt: update_cache=yes
+
+   - name: Install base packages
+     apt: name={{ item }} state=latest 
+     with_items:
+     - ntp
+     - vim
+     - screen
+     - curl
+     - git
