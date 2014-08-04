@@ -1,0 +1,15 @@
+users:
+  - name: wcollani
+    key: "{{ lookup('file', 'wcollani.pub') }}"
+    state: present
+    groups: sudo
+    shell: /bin/bash 
+  - name: user1
+    key: "{{ lookup('file', 'user1.pub') }}"
+    state: absent
+  - name: user2
+    key: "{{ lookup('file', 'user2.pub') }}"
+    state: present
+  - name: user3
+    key: "{{ lookup('file', 'user3.pub') }}"
+    state: present

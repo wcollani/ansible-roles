@@ -1,0 +1,15 @@
+---
+   - name: Create User
+     user: name={{ item.name }} 
+         shell={{ item.shell | default("/bin/bash") }} 
+         groups={{ item.groups | default("") }} 
+         append=yes 
+         state={{ item.state }} 
+         password="" #No password since only keybased login? or enforce password standard?
+         update_password=always
+     with_items: users
+
+   - name: Add ssh user keys
+     authorized_key: user={{ item.name }} key="{{ item.key }}"
+     when: item.state != "absent"
+     with_items: users
